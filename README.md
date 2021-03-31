@@ -14,6 +14,13 @@ Each raw photo is retouched by three experts, while they elaborately adjust each
 
 ![sample_images](imgs/motivation.jpg)
 
+Examples of a group of photos from the PPR10K dataset.
+**Top**: the raw photos; 
+**Bottom**: the retouched results from one expert and the human-region masks.
+The raw photos exhibit poor visual quality and large variance in subject views, background contexts, 
+lighting conditions and camera settings. 
+The retouched results demonstrate both good visual quality (with human-region priority) and group-level consistency.
+
 ### Agreement
 
 - All files in the PPR10K dataset are available for ***non-commercial research purposes*** only.
