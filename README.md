@@ -14,7 +14,7 @@ Each raw photo is retouched by three experts, while they elaborately adjust each
 
 ![sample_images](imgs/sample_imgs.jpg)
 
-### Details
+### Overview
 
 All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (Password: wu03):
 
@@ -31,7 +31,7 @@ All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rzn
 | &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-For more details and the instructions for usage, please refer to the documents [here](dataset/README.md).
+For more details and the instructions for usage, please refer to the documents [here](docs/dataset_usage.md).
 
 ### Agreement
 
