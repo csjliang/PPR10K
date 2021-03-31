@@ -10,9 +10,13 @@ PPR10K contains 1,681 groups and 11,161 high-quality raw portrait photos in tota
 High-resolution segmentation masks of human regions are provided. 
 Each raw photo is retouched by three experts, while they elaborately adjust each group of photos to have consistent tones.
 
-### Sample Images
+### Samples and Motivations
 
-![sample_images](imgs/sample_imgs.jpg)
+![sample_images](imgs/motivation.jpg)
+
+### Agreement
+
+- All files in the PPR10K dataset are available for ***non-commercial research purposes*** only.
 
 ### Overview
 
@@ -31,11 +35,12 @@ All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rzn
 | &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-For more details and the instructions for usage, please refer to the documents [here](docs/dataset_usage.md).
+One can directly use the 360p (540x360 or 360x540) training and validation files (photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
+Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g., augment the training samples, get photos with hiogher or full resolutions).
 
-### Agreement
+### Training and Validating the PPR using [3DLUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
 
-- All files in the PPR10K dataset are available for ***non-commercial research purposes*** only.
+
 
 
 ### Citation
