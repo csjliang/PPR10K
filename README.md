@@ -14,12 +14,12 @@ Each raw photo is retouched by three experts, while they elaborately adjust each
 
 ![sample_images](imgs/motivation.jpg)
 
-Examples of a group of photos from the PPR10K dataset.
+Two example groups of photos from the PPR10K dataset.
 **Top**: the raw photos; 
-**Bottom**: the retouched results from one expert and the human-region masks.
+**Bottom**: the retouched results from expert-a and the human-region masks.
 The raw photos exhibit poor visual quality and large variance in subject views, background contexts, 
 lighting conditions and camera settings. 
-The retouched results demonstrate both good visual quality (with human-region priority) and group-level consistency.
+In contrast, the retouched results demonstrate both good visual quality (with *human-region priority*) and *group-level consistency*.
 
 ### Agreement
 
@@ -33,17 +33,17 @@ All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rzn
 | :--- | :---: | ----: | :----: | :----------
 | [PPR10K-dataset](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) | 345 GB | 122,810 | | Main folder
 | &boxvr;&nbsp; raw | 313 GB | 11,161 | RAW | All photos in raw format (.CR2, .NEF, .ARW, etc)
-| &boxvr;&nbsp; xmp_source | 130 MB | 11,161 | XMP | Default meta-file of the raw photos in CameraRaw, used in our [data augmentation]()
-| &boxvr;&nbsp; xmp_target_a | 130 MB | 11,161 | XMP | Meta-file of the raw photos retouched by the expert a
-| &boxvr;&nbsp; xmp_target_b | 130 MB | 11,161 | XMP | Meta-file of the raw photos retouched by the expert b
-| &boxvr;&nbsp; xmp_target_c | 130 MB | 11,161 | XMP | Meta-file of the raw photos retouched by the expert c
+| &boxvr;&nbsp; xmp_source | 130 MB | 11,161 | XMP | Default meta-file of the raw photos in CameraRaw, used in our [data augmentation](docs/dataset_usage.md)
+| &boxvr;&nbsp; xmp_target_a | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert a
+| &boxvr;&nbsp; xmp_target_b | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert b
+| &boxvr;&nbsp; xmp_target_c | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert c
 | &boxvr;&nbsp; masks_full | 697 MB | 11,161 | PNG | Full-resolution human-region masks in binary format
 | &boxvr;&nbsp; masks_360p | 56 MB | 11,161 | PNG | 360p human-region masks for fast training and validation
 | &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-One can directly use the 360p (540x360 or 360x540) training and validation files (photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
-Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g., augment the training samples, get photos with hiogher or full resolutions).
+One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
+Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g., augment the training samples regarding illuminations and colors, get photos with higher or full resolutions).
 
 ### Training and Validating the PPR using [3DLUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
 
