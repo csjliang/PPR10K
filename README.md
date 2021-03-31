@@ -40,8 +40,50 @@ Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g.
 
 ### Training and Validating the PPR using [3DLUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
 
+#### Installation
 
+- Clone this repo.
+```bash
+git clone https://github.com/csjliang/PPR10K
+cd PPR10K/3DLUT_PPR10K/
+```
 
+- Install dependencies.
+```bash
+pip install -r requirements.txt
+```
+
+- Build. Modify the CUDA path in ```trilinear_cpp/setup.sh``` adaptively and
+```bash
+cd trilinear_cpp
+sh trilinear_cpp/setup.sh
+```
+
+#### Training
+
+- Training without GLC strategy and save models:
+```bash
+python multi_LUTs_paper.py
+```
+
+- Training with GLC strategy and save models:
+```bash
+python multi_LUTs_paper_GLC.py
+```
+
+#### Evaluation
+
+- Generate the retouched results:
+```bash
+python multi_LUTs_paper_evaluation.py
+```
+
+- Use matlab to calculate the measures in our paper:
+```bash
+../MATLAB/calculate_metrics.m
+```
+
+### Training and Validating the PPR using [Parameter Regression]()
 
 ### Citation
 If you use this dataset and code for your research, please cite our paper.
