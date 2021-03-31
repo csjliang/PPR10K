@@ -18,7 +18,7 @@ parser.add_argument("--lut_number", type=int, default=5, help="number of lut")
 parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 parser.add_argument("--epoch", type=int, default=270, help="epoch to start training from")
 parser.add_argument("--aug_test", type=bool, default=True, help="self-ensemble for testing")
-parser.add_argument("--dataset_name", type=str, default="consistency_colorfix_rename_1220", help="name of the dataset") #consistency_colorfix_rename_1220  beijing_1225
+parser.add_argument("--dataset_name", type=str, default="consistency_colorfix_rename_1220", help="name of the datasets") #consistency_colorfix_rename_1220  beijing_1225
 parser.add_argument("--model_dir", type=str, default="newval_nomask_glc_zhangli", help="path to save model")
 parser.add_argument("--use_mask", type=bool, default=False,
                     help="whether to use the human segmentation mask for weighted loss")
