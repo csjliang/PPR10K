@@ -90,7 +90,7 @@ python multi_LUTs_paper_evaluation.py
 ../MATLAB/calculate_metrics.m
 ```
 
-### Training and Validating the PPR using [Parameter Regression](Parameter_Regression/README.md)
+### Training and Validating the PPR using [Parameter Regression](Parameter_Regression)
 
 ### Citation
 If you use this dataset and code for your research, please cite our paper.
