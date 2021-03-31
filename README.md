@@ -12,6 +12,8 @@ Each raw photo is retouched by three experts, while they elaborately adjust each
 
 ### Sample Images
 
+![sample_images](imgs/sample_imgs.jpg)
+
 ### Details
 
 All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (Password: wu03):
