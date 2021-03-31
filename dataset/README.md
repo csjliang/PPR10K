@@ -31,7 +31,7 @@ All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rzn
 | &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-For more details and the instructions for usage, please refer to the documents [here](dataset/README.md).
+For more details and the instructions for usage, please refer to the documents [here](dataset/README.md). dd
 
 ### Agreement
 
