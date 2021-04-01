@@ -6,11 +6,18 @@
 > [Jie Liang](liangjie.xyz)\*, Hui Zeng\*, Miaomiao Cui, Xuansong Xie and [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang/). <br>
 > In CVPR 2021.
 
-PPR10K contains 1,681 groups and 11,161 high-quality raw portrait photos in total. 
-High-resolution segmentation masks of human regions are provided. 
-Each raw photo is retouched by three experts, while they elaborately adjust each group of photos to have consistent tones.
+The proposed **Portrait Photo Retouching dataset (PPR10K)** is a large-scale and diverse dataset that contains: <br>
+- 11,161 high-quality raw portrait photos (resolutions from 4K to 8K) in 1,681 groups; <br>
+- 3 versions of manual retouched targets of all photos given by 3 expert retouchers; <br> 
+- full resolution human-region masks of all photos.
 
-### Samples and Motivations
+This dataset is first of its kind to consider the two special and practical requirements of portrait photo retouching task, i.e., 
+Human-Region Priority and Group-Level Consistency. Three main challenges are expected to be tackled in the follow-up researches: <br>
+- Flexible and content-adaptive models for such a diverse task regarding both image contents and lighting conditions; <br>
+- Highly efficient models to process practical resolution from 4K to 8K; <br>
+- Robust and stable models to meet the requirement of group-level consistency. 
+
+### Samples
 
 ![sample_images](imgs/motivation.jpg)
 
@@ -27,11 +34,12 @@ In contrast, the retouched results demonstrate both good visual quality (with *h
 
 ### Overview
 
-All data is hosted on [Baidu Drive](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (Password: wu03):
+All data is hosted on [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
+and [百度网盘](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (验证码: wu03):
 
 | Path | Size | Files | Format | Description
 | :--- | :---: | ----: | :----: | :----------
-| [PPR10K-dataset](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) | 345 GB | 122,810 | | Main folder
+| [PPR10K-dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) | 345 GB | 122,810 | | Main folder
 | &boxvr;&nbsp; raw | 313 GB | 11,161 | RAW | All photos in raw format (.CR2, .NEF, .ARW, etc)
 | &boxvr;&nbsp; xmp_source | 130 MB | 11,161 | XMP | Default meta-file of the raw photos in CameraRaw, used in our [data augmentation](docs/dataset_usage.md)
 | &boxvr;&nbsp; xmp_target_a | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert a
