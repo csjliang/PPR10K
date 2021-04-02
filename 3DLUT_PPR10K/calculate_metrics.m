@@ -56,7 +56,6 @@ for i = 1:numel(group)
 end
 GLC = GLC / numel(group);
 fprintf(source_dir)
-% fprintf(': psnr: %.4f, Eab: %.4f, psnr_hc: %.4f, Eab_hc: %.4f, GLC:%.4f\n', psnr_avg, Eab_avg, 1, 1, GLC);
 fprintf(': psnr: %.4f, Eab: %.4f, psnr_hc: %.4f, Eab_hc: %.4f, GLC:%.4f\n', psnr_avg, Eab_avg, psnr_hc_avg, Eab_hc_avg, GLC);
 
 end
