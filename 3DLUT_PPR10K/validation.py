@@ -7,17 +7,14 @@ from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
 from models_x import *
-from datasets_AIPS_evaluation import *
+from datasets_evaluation import *
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--lut_number", type=int, default=5, help="number of lut")
-parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 parser.add_argument("--data_path", type=str, default="/home/liangjie/AIPS_data/", help="root of the datasets")
 parser.add_argument("--gpu_id", type=str, default="7", help="gpu id")
-parser.add_argument("--epoch", type=int, default=-1, help="epoch to start training from")
-parser.add_argument("--aug_test", type=bool, default=True, help="self-ensemble for testing")
-parser.add_argument("--dataset_name", type=str, default="consistency_colorfix_rename_1220", help="name of the datasets") #consistency_colorfix_rename_1220  beijing_1225
+parser.add_argument("--epoch", type=int, default=-1, help="epoch to load")
 parser.add_argument("--model_dir", type=str, default="nomask_noglc_a", help="path to save model")
+parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 opt = parser.parse_args()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_id
@@ -65,7 +62,7 @@ dataloader = DataLoader(
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 
-def generator(img, aug=False):
+def generator(img):
     pred = classifier(img).squeeze()
     if len(pred.shape) == 1:
         pred = pred.unsqueeze(0)
@@ -84,7 +81,6 @@ def generator(img, aug=False):
 
     return combine_A
 
-
 def visualize_result():
     """Saves a generated sample from the validation set"""
     out_dir = "results/%s_%d" % (opt.model_dir, opt.epoch)
@@ -92,7 +88,7 @@ def visualize_result():
     for i, batch in enumerate(dataloader):
         real_A = Variable(batch["A_input"].type(Tensor))
         img_name = batch["input_name"]
-        fake_B = generator(real_A, aug=opt.aug_test)
+        fake_B = generator(real_A)
         save_image(fake_B, os.path.join(out_dir, "%s.png" % (img_name[0][:-4])), nrow=1, normalize=False)
 
 visualize_result()

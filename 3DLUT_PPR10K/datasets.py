@@ -17,7 +17,7 @@ class ImageDataset_paper(Dataset):
         self.mode = mode
         self.root = root
         self.use_mask = use_mask
-        self.retoucher = 'wanglei'
+        self.retoucher = 'a'
         print('training with target_' + self.retoucher)
         self.train_input_files = sorted(glob.glob(os.path.join(root, "train/source_aug" + "/*.tif")))
         self.train_target_files = sorted(glob.glob(os.path.join(root, "train/target_" + self.retoucher + "/*.tif")))

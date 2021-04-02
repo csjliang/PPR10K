@@ -13,7 +13,7 @@ class ImageDataset_paper(data.Dataset):
 
         self.mode = mode
         self.root = root
-        self.retoucher = 'wanglei'
+        self.retoucher = 'a'
         print('training with target_' + self.retoucher)
         self.dataroot_LQ_train = os.path.join(root, "train/source_aug")
         self.dataroot_GT_train = os.path.join(root, "train/target_" + self.retoucher)

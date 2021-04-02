@@ -1,31 +1,8 @@
 import torch.nn as nn
-import torch.nn.functional as F
 import torchvision.models as models
-import torchvision.transforms as transforms
-from torch.autograd import Variable
 import torch
 import numpy as np
-import math
 import trilinear
-
-class SoftHistogram(nn.Module):
-    def __init__(self, bins, min, max, sigma):
-        super(SoftHistogram, self).__init__()
-        self.bins = bins
-        self.min = min
-        self.max = max
-        self.sigma = sigma
-        self.delta = float(max - min) / float(bins)
-        self.centers = float(min) + self.delta * (torch.arange(bins).float() + 0.5)
-        self.centers = nn.Parameter(self.centers, requires_grad=False)
-
-    def forward(self, x):
-        x = x.flatten()
-        x = torch.unsqueeze(x, 0) - torch.unsqueeze(self.centers, 1)
-        x = torch.sigmoid(self.sigma * (x + self.delta / 2)) - torch.sigmoid(self.sigma * (x - self.delta / 2))
-        x = x.sum(dim=1)
-        x = x / x.sum()
-        return x
 
 def weights_init_normal_classifier(m):
     classname = m.__class__.__name__
@@ -121,101 +98,6 @@ class resnet34_224_meta(nn.Module):
 
         return f
 
-##############################
-#        Discriminator
-##############################
-
-
-def discriminator_block(in_filters, out_filters, normalization=False):
-    """Returns downsampling layers of each discriminator block"""
-    layers = [nn.Conv2d(in_filters, out_filters, 3, stride=2, padding=1)]
-    layers.append(nn.LeakyReLU(0.2))
-    if normalization:
-        # layers.append(nn.InstanceNorm2d(out_filters, affine=True))
-        layers.append(nn.BatchNorm2d(out_filters))
-
-    return layers
-
-
-class Discriminator(nn.Module):
-    def __init__(self, in_channels=3):
-        super(Discriminator, self).__init__()
-
-        self.model = nn.Sequential(
-            nn.Upsample(size=(256, 256), mode='bilinear'),
-            nn.Conv2d(3, 16, 3, stride=2, padding=1),
-            nn.LeakyReLU(0.2),
-            nn.InstanceNorm2d(16, affine=True),
-            *discriminator_block(16, 32),
-            *discriminator_block(32, 64),
-            *discriminator_block(64, 128),
-            *discriminator_block(128, 128),
-            # *discriminator_block(128, 128),
-            nn.Conv2d(128, 1, 8, padding=0)
-        )
-
-    def forward(self, img_input):
-        return self.model(img_input)
-
-
-class Discriminator_VGG_128(nn.Module):
-    def __init__(self, in_nc, nf):
-        super(Discriminator_VGG_128, self).__init__()
-        self.upsample = nn.Upsample(size=(128, 128), mode='bilinear')
-        # [64, 128, 128]
-        self.conv0_0 = nn.Conv2d(in_nc, nf, 3, 1, 1, bias=True)
-        self.conv0_1 = nn.Conv2d(nf, nf, 4, 2, 1, bias=False)
-        self.bn0_1 = nn.BatchNorm2d(nf, affine=True)
-        # [64, 64, 64]
-        self.conv1_0 = nn.Conv2d(nf, nf * 2, 3, 1, 1, bias=False)
-        self.bn1_0 = nn.BatchNorm2d(nf * 2, affine=True)
-        self.conv1_1 = nn.Conv2d(nf * 2, nf * 2, 4, 2, 1, bias=False)
-        self.bn1_1 = nn.BatchNorm2d(nf * 2, affine=True)
-        # [128, 32, 32]
-        self.conv2_0 = nn.Conv2d(nf * 2, nf * 4, 3, 1, 1, bias=False)
-        self.bn2_0 = nn.BatchNorm2d(nf * 4, affine=True)
-        self.conv2_1 = nn.Conv2d(nf * 4, nf * 4, 4, 2, 1, bias=False)
-        self.bn2_1 = nn.BatchNorm2d(nf * 4, affine=True)
-        # [256, 16, 16]
-        self.conv3_0 = nn.Conv2d(nf * 4, nf * 8, 3, 1, 1, bias=False)
-        self.bn3_0 = nn.BatchNorm2d(nf * 8, affine=True)
-        self.conv3_1 = nn.Conv2d(nf * 8, nf * 8, 4, 2, 1, bias=False)
-        self.bn3_1 = nn.BatchNorm2d(nf * 8, affine=True)
-        # [512, 8, 8]
-        self.conv4_0 = nn.Conv2d(nf * 8, nf * 8, 3, 1, 1, bias=False)
-        self.bn4_0 = nn.BatchNorm2d(nf * 8, affine=True)
-        self.conv4_1 = nn.Conv2d(nf * 8, nf * 8, 4, 2, 1, bias=False)
-        self.bn4_1 = nn.BatchNorm2d(nf * 8, affine=True)
-
-        self.linear1 = nn.Linear(512 * 4 * 4, 100)
-        self.linear2 = nn.Linear(100, 1)
-
-        # activation function
-        self.lrelu = nn.LeakyReLU(negative_slope=0.2, inplace=True)
-
-    def forward(self, x):
-        fea = self.upsample(x)
-
-        fea = self.lrelu(self.conv0_0(fea))
-        fea = self.lrelu(self.bn0_1(self.conv0_1(fea)))
-
-        fea = self.lrelu(self.bn1_0(self.conv1_0(fea)))
-        fea = self.lrelu(self.bn1_1(self.conv1_1(fea)))
-
-        fea = self.lrelu(self.bn2_0(self.conv2_0(fea)))
-        fea = self.lrelu(self.bn2_1(self.conv2_1(fea)))
-
-        fea = self.lrelu(self.bn3_0(self.conv3_0(fea)))
-        fea = self.lrelu(self.bn3_1(self.conv3_1(fea)))
-
-        fea = self.lrelu(self.bn4_0(self.conv4_0(fea)))
-        fea = self.lrelu(self.bn4_1(self.conv4_1(fea)))
-
-        fea = fea.view(fea.size(0), -1)
-        fea = self.lrelu(self.linear1(fea))
-        out = self.linear2(fea)
-        return out
-
 class Classifier(nn.Module):
     def __init__(self, in_channels=3):
         super(Classifier, self).__init__()
@@ -259,28 +141,6 @@ class Classifier2(nn.Module):
 
     def forward(self, img_input):
         return self.model(img_input)
-
-
-class Classifier_unpaired(nn.Module):
-    def __init__(self, in_channels=3):
-        super(Classifier_unpaired, self).__init__()
-
-        self.model = nn.Sequential(
-            nn.Upsample(size=(256, 256), mode='bilinear'),
-            nn.Conv2d(3, 16, 3, stride=2, padding=1),
-            nn.LeakyReLU(0.2),
-            nn.InstanceNorm2d(16, affine=True),
-            *discriminator_block(16, 32),
-            *discriminator_block(32, 64),
-            *discriminator_block(64, 128),
-            *discriminator_block(128, 128),
-            # *discriminator_block(128, 128),
-            nn.Conv2d(128, 3, 8, padding=0),
-        )
-
-    def forward(self, img_input):
-        return self.model(img_input)
-
 
 class Generator3DLUT_identity(nn.Module):
     def __init__(self, dim=33):
@@ -403,7 +263,6 @@ class TrilinearInterpolation(torch.nn.Module):
 
     def forward(self, lut, x):
         return TrilinearInterpolationFunction.apply(lut, x)
-
 
 class TV_3D(nn.Module):
     def __init__(self, dim=33):
