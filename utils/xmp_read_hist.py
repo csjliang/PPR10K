@@ -3,7 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 
+# path of the xmp files
 xmp_root = ''
+# path to save the hist
 hist_root = ''
 
 if not os.path.exists(hist_root):

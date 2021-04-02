@@ -170,7 +170,10 @@ def get_augment_params_with_names(num_files_aug_all, xmp_train_dict, xmp_file_ro
 
 if __name__ == '__main__':
 
-    xmp_file_root, aug_xmp_root = '', ''
+    # path of the xmp_source
+    xmp_file_root = ''
+    # path to save the augmented xmps
+    aug_xmp_root = ''
 
     aug_times = 5
 

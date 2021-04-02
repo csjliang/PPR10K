@@ -1,8 +1,11 @@
 import os
 import exifread
-import shutil
+from matplotlib import pyplot as plt
 
-root_dir = r'F:\AIPS\paper\RAW_renamed\images_tif_540\target_wanglei'
+# path of images
+root_dir = ''
+# path to save the hist
+save_path = ''
 
 def getExif(file_path, file_name):
     FIELD = 'EXIF DateTimeOriginal'
@@ -28,4 +31,25 @@ for file_name in os.listdir(root_dir):
         time_tag = getExif(file_path, file_name)
         time_tags.append(time_tag)
 
-print(time_tags)
+months = []
+hours = []
+
+for time in time_tags:
+    months.append(time.split('_')[0][4:6])
+    hours.append(time.split('_')[1][:2])
+
+print(months)
+print(hours)
+
+months = sorted(months)
+hours = sorted(hours)
+
+plt.hist(months, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+plt.title('month')
+plt.savefig(os.path.join(save_path, 'month.png'))
+plt.show()
+
+plt.hist(hours, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
+plt.title('hour')
+plt.savefig(os.path.join(save_path, 'hour.png'))
+plt.show()

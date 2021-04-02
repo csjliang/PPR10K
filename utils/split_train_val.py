@@ -1,7 +1,10 @@
 import os
 
+# path of the files (11161)
 data_root = ''
+# path to save train files
 target_train_root = ''
+# path to save val files
 target_val_root = ''
 
 os.makedirs(target_train_root, exist_ok=True)

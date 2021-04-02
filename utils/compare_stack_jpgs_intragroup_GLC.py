@@ -2,7 +2,9 @@ import os
 import cv2
 import numpy as np
 
+# root of the stacked images
 root_dir = ''
+# root to save all_stacked images of GLC
 target_dir_root = ''
 
 if not os.path.exists(target_dir_root):

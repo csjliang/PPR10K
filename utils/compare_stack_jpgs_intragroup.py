@@ -2,7 +2,9 @@ import os
 import cv2
 import numpy as np
 
+# root of different model results
 root_dir = ''
+# root to save the stacked images
 target_dir_root = ''
 
 if not os.path.exists(target_dir_root):

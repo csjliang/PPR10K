@@ -1,9 +1,11 @@
 import os
 import shutil
 
+# path of the augmented xmp files
 auged_xmp_path = ''
-
+# path of the raw photos
 ori_raw_path = ''
+# path to save both the copied raws and the auged xmp files
 auged_raw_path = ''
 
 if not os.path.exists(auged_raw_path):
