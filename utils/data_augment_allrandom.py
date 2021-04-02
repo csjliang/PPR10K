@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import random
 
 def get_xmp_augment(name_ori, name_aug, augment_param, xmp_file_root, pred_xmp_root):
 
@@ -105,26 +106,23 @@ def get_GT_attribute_statistics(num_steps, each_key):
 
     return statics_all_aug_attributes, min_max_each_attribute
 
-def get_augment_params_with_names(num_files_aug_all, xmp_source_dict, source_xmp_root, aug_xmp_root, xmp_target_dict, target_xmp_root, aug_xmp_target_root):
+def get_augment_params_with_names(num_files_aug_all, xmp_train_dict, xmp_file_root, aug_xmp_root):
 
-    num_already = len(os.listdir(source_xmp_root))
+    num_already = len(os.listdir(xmp_file_root))
 
     num_aug_each_image = int((num_files_aug_all - num_already) / num_already)
 
-    for name, dict_source in xmp_source_dict.items():
-
-        dict_target = xmp_target_dict[name]
+    for name, dict in xmp_train_dict.items():
 
         modified_attributes = ['Temperature', 'Tint', 'Saturation', 'Vibrance', 'Exposure2012', 'Contrast2012', 'Highlights2012',
                                'Shadows2012', 'Whites2012', 'Blacks2012', 'Clarity2012', 'Dehaze']
 
-        source_values = []
         GT_values = []
         for attribute in modified_attributes:
-            source_values.append(dict_source[attribute])
-            GT_values.append(dict_target[attribute])
+            GT_values.append(dict[attribute])
 
-        auging_attributes = ['Temperature', 'Tint', 'Exposure2012', 'Highlights2012', 'Contrast2012']
+        auging_attributes = ['Temperature', 'Tint', 'Exposure2012', 'Highlights2012', 'Contrast2012', 'Saturation']
+
         random_values_all_attribute = np.zeros([len(modified_attributes), num_aug_each_image])
 
         for i in range(len(modified_attributes)):
@@ -134,76 +132,52 @@ def get_augment_params_with_names(num_files_aug_all, xmp_source_dict, source_xmp
             if attribute in auging_attributes:
 
                 if attribute == 'Exposure2012':
-                    start = -0.5
-                    end = 0.5
+                    start = -1
+                    end = 1
                 if attribute == 'Tint':
                     start = -10
                     end = 10
                 if attribute == 'Highlights2012':
-                    start = -30
-                    end = 30
+                    start = -35
+                    end = 35
                 if attribute == 'Temperature':
-                    start = -1000
-                    end = 1000
+                    start = -500
+                    end = 500
                 if attribute == 'Contrast2012':
-                    start = -20
-                    end = 20
+                    start = -30
+                    end = 0
+                if attribute == 'Saturation':
+                    start = 30
+                    end = 0
 
                 random_values_all_attribute[i, :] = np.random.uniform(start, end, size=num_aug_each_image)
 
-
         for i in range(num_aug_each_image):
 
-            auged_values = source_values.copy()
-            GT_auged_values = GT_values.copy()
+            auged_values = GT_values.copy()
 
-            name_aug = name + '_' + str(i+2)
+            name_aug = name + '_' + str(i+1)
 
             for j in range(len(modified_attributes)):
 
                 if modified_attributes[j] in auging_attributes:
 
-                    if modified_attributes[j] == 'Highlights2012':
-                        if float(GT_auged_values[j]) > 0:
-                            start = max(float(GT_auged_values[j])-100, 30)
-                            end = 30
-                            random_values_all_attribute[j, i] = np.random.uniform(start, end, size=1)[0]
-                        else:
-                            start = -30
-                            end = min(100 + float(GT_auged_values[j]), 30)
-                            random_values_all_attribute[j, i] = np.random.uniform(start, end, size=1)[0]
-
                     auged_values[j] = random_values_all_attribute[j, i] + float(auged_values[j])
-                    if modified_attributes[j] not in ['Temperature', 'Tint']:
-                        GT_auged_values[j] = float(GT_auged_values[j]) - random_values_all_attribute[j, i]
 
-            get_xmp_augment(name, name_aug, auged_values, source_xmp_root, aug_xmp_root)
-            get_xmp_augment(name, name_aug, GT_auged_values, target_xmp_root, aug_xmp_target_root)
+            # print(name_aug, auged_values)
+
+            get_xmp_augment(name, name_aug, auged_values, xmp_file_root, aug_xmp_root)
 
 if __name__ == '__main__':
 
-    source_xmp_root, aug_xmp_root = '', ''
-    target_xmp_root, aug_xmp_target_root = '', ''
+    xmp_file_root, aug_xmp_root = '', ''
 
-    num_steps = 10
-    aug_times = 6
+    aug_times = 5
 
-    os.makedirs(aug_xmp_target_root, exist_ok=True)
-
-    _, each_key = read_xmp_and_statis(source_xmp_root)
-
-    statics_all_aug_attributes, min_max_each_attribute = get_GT_attribute_statistics(num_steps, each_key)
-
-    for attribute in ['Temperature', 'Tint', 'Exposure2012', 'Highlights2012']:
-        sums = 0
-        for key, value in statics_all_aug_attributes[attribute].items():
-            sums += value
-
-    num_train = len(os.listdir(source_xmp_root))
+    num_train = len(os.listdir(xmp_file_root))
 
     num_all_files_after_augment = num_train * aug_times
 
-    xmp_source_dict, _ = read_xmp_and_statis(source_xmp_root)
-    xmp_target_dict, _ = read_xmp_and_statis(target_xmp_root)
+    xmp_train_dict, _ = read_xmp_and_statis(xmp_file_root)
 
-    augment_params_all = get_augment_params_with_names(num_all_files_after_augment, xmp_source_dict, source_xmp_root, aug_xmp_root, xmp_target_dict, target_xmp_root, aug_xmp_target_root)
+    augment_params_all = get_augment_params_with_names(num_all_files_after_augment, xmp_train_dict, xmp_file_root, aug_xmp_root)
