@@ -1,6 +1,5 @@
 import os
 import numpy as np
-import random
 
 def get_xmp_augment(name_ori, name_aug, augment_param, xmp_file_root, pred_xmp_root):
 
@@ -72,11 +71,6 @@ def read_xmp_and_statis(xmp_root):
         value = []
 
         for name, dict in xmp_all_dict.items():
-            try:
-                a = dict[key]
-            except:
-                # a += 1
-                print(name)
             value.append(float(dict[key]))
         each_key[key] = value
     return xmp_all_dict, each_key
@@ -162,8 +156,6 @@ def get_augment_params_with_names(num_files_aug_all, xmp_source_dict, source_xmp
 
             auged_values = source_values.copy()
             GT_auged_values = GT_values.copy()
-            # print(auged_values)
-            # print(GT_auged_values)
 
             name_aug = name + '_' + str(i+2)
 
@@ -171,39 +163,32 @@ def get_augment_params_with_names(num_files_aug_all, xmp_source_dict, source_xmp
 
                 if modified_attributes[j] in auging_attributes:
 
-                    # check if
                     if modified_attributes[j] == 'Highlights2012':
                         if float(GT_auged_values[j]) > 0:
                             start = max(float(GT_auged_values[j])-100, 30)
                             end = 30
                             random_values_all_attribute[j, i] = np.random.uniform(start, end, size=1)[0]
-                            # print(GT_auged_values[j], random_values_all_attribute[j, i])
                         else:
                             start = -30
                             end = min(100 + float(GT_auged_values[j]), 30)
                             random_values_all_attribute[j, i] = np.random.uniform(start, end, size=1)[0]
-                            # print(GT_auged_values[j], random_values_all_attribute[j, i])
 
                     auged_values[j] = random_values_all_attribute[j, i] + float(auged_values[j])
                     if modified_attributes[j] not in ['Temperature', 'Tint']:
                         GT_auged_values[j] = float(GT_auged_values[j]) - random_values_all_attribute[j, i]
 
-            print(name_aug)
-            print(auged_values)
-            # print(GT_values)
-            # print(random_values_all_attribute[:, i])
-            print(GT_auged_values)
             get_xmp_augment(name, name_aug, auged_values, source_xmp_root, aug_xmp_root)
             get_xmp_augment(name, name_aug, GT_auged_values, target_xmp_root, aug_xmp_target_root)
 
 if __name__ == '__main__':
 
-    source_xmp_root, aug_xmp_root = r'G:\zenghui\children_train_raw_20201221_orderfixed\xmp_default', r'G:\zenghui\children_train_raw_20201221_orderfixed\xmp_default_aug'
-    target_xmp_root, aug_xmp_target_root = r'G:\zenghui\children_train_raw_20201221_orderfixed\xmp_final', r'G:\zenghui\children_train_raw_20201221_orderfixed\xmp_final_aug'
-
-    os.makedirs(aug_xmp_target_root, exist_ok=True)
+    source_xmp_root, aug_xmp_root = '', ''
+    target_xmp_root, aug_xmp_target_root = '', ''
 
     num_steps = 10
+    aug_times = 6
+
+    os.makedirs(aug_xmp_target_root, exist_ok=True)
 
     _, each_key = read_xmp_and_statis(source_xmp_root)
 
@@ -217,11 +202,9 @@ if __name__ == '__main__':
 
     num_train = len(os.listdir(source_xmp_root))
 
-    num_all_files_after_augment = num_train * 6
+    num_all_files_after_augment = num_train * aug_times
 
     xmp_source_dict, _ = read_xmp_and_statis(source_xmp_root)
     xmp_target_dict, _ = read_xmp_and_statis(target_xmp_root)
 
     augment_params_all = get_augment_params_with_names(num_all_files_after_augment, xmp_source_dict, source_xmp_root, aug_xmp_root, xmp_target_dict, target_xmp_root, aug_xmp_target_root)
-
-

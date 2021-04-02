@@ -5,6 +5,8 @@ times = ['20150331_164748__0_0', '20150331_164819__0_1', '20150331_164827__0_2',
 
 print(len(times))
 
+save_path = ''
+
 months = []
 hours = []
 
@@ -24,10 +26,10 @@ hours = sorted(hours)
 
 plt.hist(months, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
 plt.title('month')
-plt.savefig(os.path.join('F:\AIPS\paper\RAW_renamed', 'month.png'))
+plt.savefig(os.path.join(save_path, 'month.png'))
 plt.show()
 
 plt.hist(hours, bins=40, facecolor="blue", edgecolor="black", alpha=0.7)
 plt.title('hour')
-plt.savefig(os.path.join('F:\AIPS\paper\RAW_renamed', 'hour.png'))
+plt.savefig(os.path.join(save_path, 'hour.png'))
 plt.show()

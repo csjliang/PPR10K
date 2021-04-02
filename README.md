@@ -107,7 +107,7 @@ python validation.py --data_path [path_to_dataset] --gpu_id [gpu_id] --model_dir
 
 - Use matlab to calculate the measures in our paper:
 ```bash
-../MATLAB/calculate_metrics.m
+calculate_metrics(source_dir, target_dir, mask_dir)
 ```
 
 ### Citation

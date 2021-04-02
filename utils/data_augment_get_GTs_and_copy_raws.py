@@ -1,10 +1,10 @@
 import os
 import shutil
 
-auged_xmp_path = r'G:\zenghui\children_train_raw_20201221_orderfixed\xmp_default_aug'
+auged_xmp_path = ''
 
-ori_raw_path = r'G:\zenghui\children_train_raw_20201221_orderfixed\raw'
-auged_raw_path = r'G:\zenghui\children_train_raw_20201221_orderfixed\raw_aug'
+ori_raw_path = ''
+auged_raw_path = ''
 
 if not os.path.exists(auged_raw_path):
     os.mkdir(auged_raw_path)
@@ -28,10 +28,8 @@ for file_name in file_names:
             source_raw_path = os.path.join(ori_raw_path, raw_name)
             target_name = file_name[:-4] + raw_name[-4:]
             target_raw_path = os.path.join(auged_raw_path, target_name)
-            # print((source_raw_path, target_raw_path))
             source_xmp_path = os.path.join(auged_xmp_path, file_name)
             target_xmp_path = os.path.join(auged_raw_path, file_name)
-            # print('hh ', source_xmp_path, target_xmp_path)
             shutil.copyfile(source_raw_path, target_raw_path)
             shutil.copyfile(source_xmp_path, target_xmp_path)
         except:
@@ -40,10 +38,8 @@ for file_name in file_names:
                 source_raw_path = os.path.join(ori_raw_path, raw_name)
                 target_name = file_name[:-4] + raw_name[-4:]
                 target_raw_path = os.path.join(auged_raw_path, target_name)
-                # print((source_raw_path, target_raw_path))
                 source_xmp_path = os.path.join(auged_xmp_path, file_name)
                 target_xmp_path = os.path.join(auged_raw_path, file_name)
-                # print('hh ', source_xmp_path, target_xmp_path)
                 shutil.copyfile(source_raw_path, target_raw_path)
                 shutil.copyfile(source_xmp_path, target_xmp_path)
             except:
@@ -52,10 +48,8 @@ for file_name in file_names:
                     source_raw_path = os.path.join(ori_raw_path, raw_name)
                     target_name = file_name[:-4] + raw_name[-4:]
                     target_raw_path = os.path.join(auged_raw_path, target_name)
-                    # print((source_raw_path, target_raw_path))
                     source_xmp_path = os.path.join(auged_xmp_path, file_name)
                     target_xmp_path = os.path.join(auged_raw_path, file_name)
-                    # print('hh ', source_xmp_path, target_xmp_path)
                     shutil.copyfile(source_raw_path, target_raw_path)
                     shutil.copyfile(source_xmp_path, target_xmp_path)
                 except:
@@ -64,10 +58,8 @@ for file_name in file_names:
                         source_raw_path = os.path.join(ori_raw_path, raw_name)
                         target_name = file_name[:-4] + raw_name[-4:]
                         target_raw_path = os.path.join(auged_raw_path, target_name)
-                        # print((source_raw_path, target_raw_path))
                         source_xmp_path = os.path.join(auged_xmp_path, file_name)
                         target_xmp_path = os.path.join(auged_raw_path, file_name)
-                        # print('hh ', source_xmp_path, target_xmp_path)
                         shutil.copyfile(source_raw_path, target_raw_path)
                         shutil.copyfile(source_xmp_path, target_xmp_path)
                     except:
@@ -75,9 +67,7 @@ for file_name in file_names:
                         source_raw_path = os.path.join(ori_raw_path, raw_name)
                         target_name = file_name[:-4] + raw_name[-4:]
                         target_raw_path = os.path.join(auged_raw_path, target_name)
-                        # print((source_raw_path, target_raw_path))
                         source_xmp_path = os.path.join(auged_xmp_path, file_name)
                         target_xmp_path = os.path.join(auged_raw_path, file_name)
-                        # print('hh ', source_xmp_path, target_xmp_path)
                         shutil.copyfile(source_raw_path, target_raw_path)
                         shutil.copyfile(source_xmp_path, target_xmp_path)

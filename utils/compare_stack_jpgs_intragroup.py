@@ -2,8 +2,8 @@ import os
 import cv2
 import numpy as np
 
-root_dir = r'D:\AIPS\result_newval'
-target_dir_root = r'D:\AIPS\result_newval_stacked'
+root_dir = ''
+target_dir_root = ''
 
 if not os.path.exists(target_dir_root):
     os.mkdir(target_dir_root)
@@ -16,9 +16,6 @@ for dir in os.listdir(root_dir):
     img_dirs.append(img_dir)
     target_dirs.append(target_dir)
 
-# img_dirs.append('/data/vdb/liangjie/PPR_data/data_to_select/others_1600')
-# target_dirs.append('/data/vdb/liangjie/3dlut_github/to_select_images_stacked/others_1600')
-
 for dir in target_dirs:
     if not os.path.exists(dir):
         os.mkdir(dir)
@@ -26,18 +23,15 @@ for dir in target_dirs:
 files = os.listdir(img_dirs[1])
 
 name_sets = {}
-for i in range(1356, 1519):
+for i in range(1356, 1681):
     name_sets[str(i)] = []
 
 for name in files:
     index = name.split('_')[0]
-    try:
-        if int(index) in range(1356, 1519):
-            name_sets[index].append(name)
-    except:
-        pass
+    if int(index) in range(1356, 1681):
+        name_sets[index].append(name)
 
-for i in range(1356, 1519):
+for i in range(1356, 1681):
     name_set = name_sets[str(i)]
     if name_set != []:
         for j in range(8):

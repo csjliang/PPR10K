@@ -1,11 +1,9 @@
-function [] = calculate_metrics(source_dir, target_dir)
-
-mask_dir = '/home/liangjie/hdd4t/AIPS_data/all_val_data_png/mask_01_540';
+function [] = calculate_metrics(source_dir, target_dir, mask_dir)
 
 img_paths = dir(fullfile(source_dir, '*.png'));
 img_names = {img_paths.name};
 
-group = cell(373,1);
+group = cell(325, 1);
 group_id = 0;
 last_img_id = 0;
 for i = 1:numel(img_names)

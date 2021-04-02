@@ -3,8 +3,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-root_dir = r'F:\AIPS\paper\RAW_renamed\xmp_wanglei_train'
-hist_dir = r'F:\AIPS\paper\RAW_renamed'
+root_dir = ''
+hist_dir = ''
 
 name = 'number_imgs_each_scene'
 
