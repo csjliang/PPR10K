@@ -31,6 +31,7 @@ Human-Region Priority and Group-Level Consistency. Three main challenges are exp
 ### Agreement
 
 - All files in the PPR10K dataset are available for ***non-commercial research purposes*** only.
+- You agree not to reproduce, duplicate, copy, sell, trade, resell or exploit for any commercial purposes, any portion of the images and any portion of derived data.
 
 ### Overview
 
@@ -47,7 +48,7 @@ and [百度网盘](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (验证码: 
 | &boxvr;&nbsp; xmp_target_c | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert c
 | &boxvr;&nbsp; masks_full | 697 MB | 11,161 | PNG | Full-resolution human-region masks in binary format
 | &boxvr;&nbsp; masks_360p | 56 MB | 11,161 | PNG | 360p human-region masks for fast training and validation
-| &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff) and target (8 bit tiff) images for fast training and validation
+| &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff, with 5 versions of augmented images) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
 One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
