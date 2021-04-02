@@ -11,8 +11,6 @@ The proposed **Portrait Photo Retouching dataset (PPR10K)** is a large-scale and
 - 3 versions of manual retouched targets of all photos given by 3 expert retouchers; <br> 
 - full resolution human-region masks of all photos.
 
-
-
 ### Samples
 
 ![sample_images](imgs/motivation.jpg)
@@ -62,7 +60,7 @@ Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g.
 - Clone this repo.
 ```bash
 git clone https://github.com/csjliang/PPR10K
-cd PPR10K/3DLUT_PPR10K/
+cd PPR10K/code_3DLUT/
 ```
 
 - Install dependencies.
