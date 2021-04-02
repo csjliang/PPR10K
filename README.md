@@ -98,10 +98,8 @@ python multi_LUTs_paper_evaluation.py
 ../MATLAB/calculate_metrics.m
 ```
 
-### Training and Validating the PPR using [Parameter Regression](Parameter_Regression)
-
 ### Citation
-If you use this dataset and code for your research, please cite our paper.
+If you use this dataset or code for your research, please cite our paper.
 ```
 @inproceedings{park2019SPADE,
   title={PPR10K: A Large-Scale Portrait Photo Retouching Dataset with Human-Region Mask and Group-Level Consistency},
@@ -110,3 +108,7 @@ If you use this dataset and code for your research, please cite our paper.
   year={2021}
 }
 ```
+
+### Related Projects
+
+[3D LUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
