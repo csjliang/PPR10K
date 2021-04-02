@@ -43,7 +43,6 @@ parfor i = 1:numel(img_names)
     
     psnr_hc_sum = psnr_hc_sum + psnr(im2double(src_img) .* weights,im2double(tar_img) .* weights);
     Eab_hc_sum = Eab_hc_sum + mean(mean(sqrt(sum((src_lab .* weights - tar_lab .* weights).^2,3))));
-    
 end
 psnr_avg = psnr_sum / numel(img_names);
 Eab_avg = Eab_sum / numel(img_names);
