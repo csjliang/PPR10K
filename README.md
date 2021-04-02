@@ -78,21 +78,31 @@ sh trilinear_cpp/setup.sh
 
 #### Training
 
-- Training without GLC strategy and save models:
+- Training without HRP and GLC strategy, save models:
 ```bash
-python multi_LUTs_paper.py
+python train.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask False --output_dir [path_to_save_models]
 ```
 
-- Training with GLC strategy and save models:
+- Training with HRP and without GLC strategy, save models:
 ```bash
-python multi_LUTs_paper_GLC.py
+python train.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask True --output_dir [path_to_save_models]
+```
+
+- Training without HRP and with GLC strategy, save models:
+```bash
+python train_GLC.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask False --output_dir [path_to_save_models]
+```
+
+- Training with both HRP and GLC strategy, save models:
+```bash
+python train_GLC.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask True --output_dir [path_to_save_models]
 ```
 
 #### Evaluation
 
 - Generate the retouched results:
 ```bash
-python multi_LUTs_paper_evaluation.py
+python validation.py --data_path [path_to_dataset] --gpu_id [gpu_id] --model_dir [path_to_models]
 ```
 
 - Use matlab to calculate the measures in our paper:
