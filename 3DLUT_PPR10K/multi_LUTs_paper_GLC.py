@@ -7,25 +7,18 @@ import time
 import datetime
 import sys
 
-import torchvision.transforms as transforms
-from torchvision.utils import save_image
-
+import torch
 from torch.utils.data import DataLoader
-from torchvision import datasets
 from torch.autograd import Variable
 
 from models_x import *
-from datasets_AIPS_otherversion import *
-
-import torch.nn as nn
-import torch.nn.functional as F
-import torch
+from datasets_AIPS_GLC import *
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--epoch", type=int, default=0, help="epoch to start training from")
-parser.add_argument("--n_epochs", type=int, default=400, help="number of epochs of training")
-parser.add_argument("--dataset_name", type=str, default="AIPS", help="name of the datasets")
-parser.add_argument("--gpu_id", type=str, default="5", help="name of the gpu")
+parser.add_argument("--epoch", type=int, default=-1, help="epoch to start training from")
+parser.add_argument("--n_epochs", type=int, default=200, help="number of epochs of training")
+parser.add_argument("--data_path", type=str, default="/home/liangjie/AIPS_data/", help="root of the datasets")
+parser.add_argument("--gpu_id", type=str, default="5", help="gpu id")
 parser.add_argument("--batch_size", type=int, default=16, help="size of the batches")
 parser.add_argument("--lr", type=float, default=0.0001, help="adam: learning rate")
 parser.add_argument("--b1", type=float, default=0.9, help="adam: decay of first order momentum of gradient")
@@ -35,11 +28,11 @@ parser.add_argument("--lambda_smooth", type=float, default=0.0001,
 parser.add_argument("--lambda_monotonicity", type=float, default=10.0,
                     help="adam: decay of first order momentum of gradient")
 parser.add_argument("--use_mask", type=bool, default=True,
-                    help="whether to use the human segmentation mask for weighted loss")
+                    help="whether to use the human region mask for weighted loss")
 parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 parser.add_argument("--n_cpu", type=int, default=1, help="number of cpu threads to use during batch generation")
 parser.add_argument("--checkpoint_interval", type=int, default=1, help="interval between model checkpoints")
-parser.add_argument("--output_dir", type=str, default="newval_mask_glc05_xiaobai", help="path to save model")
+parser.add_argument("--output_dir", type=str, default="mask_glc_a", help="path to save model")
 opt = parser.parse_args()
 print(opt)
 
@@ -48,7 +41,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_id
 os.makedirs("saved_models/%s" % opt.output_dir, exist_ok=True)
 
 cuda = True if torch.cuda.is_available() else False
-# Tensor type
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 # Loss functions
@@ -72,7 +64,6 @@ if cuda:
     LUT5 = LUT5.cuda()
     
     classifier = classifier.cuda()
-    # classifier_wb = classifier_wb.cuda()
     criterion_pixelwise.cuda()
     TV3.cuda()
     TV3.weight_r = TV3.weight_r.type(Tensor)
@@ -97,7 +88,7 @@ optimizer_G = torch.optim.Adam(
                     LUT3.parameters(), LUT4.parameters(), LUT5.parameters()), lr=opt.lr, betas=(opt.b1, opt.b2))
 
 dataloader = DataLoader(
-    ImageDataset_paper("/home/liangjie/AIPS_data/", mode="train", use_mask=opt.use_mask),
+    ImageDataset_paper(opt.data_path, mode="train", use_mask=opt.use_mask),
     batch_size=opt.batch_size,
     shuffle=True,
     num_workers=opt.n_cpu,
@@ -105,7 +96,7 @@ dataloader = DataLoader(
 
 
 psnr_dataloader = DataLoader(
-    ImageDataset_paper("/home/liangjie/AIPS_data", mode="test", use_mask=opt.use_mask),
+    ImageDataset_paper(opt.data_path, mode="test", use_mask=opt.use_mask),
     batch_size=1,
     shuffle=False,
     num_workers=1,
@@ -131,15 +122,13 @@ def generator(img):
 
     return combine_A, weights_norm
 
-
-
 def calculate_psnr():
     classifier.eval()
     # classifier_wb.eval()
     avg_psnr = 0
     for i, batch in enumerate(psnr_dataloader):
         real_A = Variable(batch["A_input"].type(Tensor))
-        real_B = Variable(batch["A_exptC"].type(Tensor))
+        real_B = Variable(batch["A_GT"].type(Tensor))
 
         fake_B, _ = generator(real_A)
         fake_B = torch.round(fake_B * 255)
@@ -166,12 +155,10 @@ for epoch in range(opt.epoch, opt.n_epochs):
     for i, batch in enumerate(dataloader):
         # Model inputs
         real_A_1 = Variable(batch["A_input_1"].type(Tensor))
-        real_B_1 = Variable(batch["A_exptC_1"].type(Tensor))
+        real_B_1 = Variable(batch["A_GT_1"].type(Tensor))
         real_A_2 = Variable(batch["A_input_2"].type(Tensor))
-        real_B_2 = Variable(batch["A_exptC_2"].type(Tensor))
+        real_B_2 = Variable(batch["A_GT_2"].type(Tensor))
         img_name = batch["input_name"]
-        real_B_1_ = batch["A_input_1"]
-        real_B_2_ = batch["A_input_2"]
         coi_patch_index_1 = batch["coi_index_1"]
         coi_patch_index_2 = batch["coi_index_2"]
         if opt.use_mask:
@@ -207,7 +194,7 @@ for epoch in range(opt.epoch, opt.n_epochs):
                 glc += 0
 
         if opt.use_mask:
-            mse = criterion_pixelwise(fake_B_1*weights_1, real_B_1*weights_1)
+            mse = criterion_pixelwise(fake_B_1 * weights_1, real_B_1 * weights_1)
         else:
             mse = criterion_pixelwise(fake_B_1, real_B_1)
 
@@ -219,7 +206,7 @@ for epoch in range(opt.epoch, opt.n_epochs):
         tv_cons = tv1 + tv2 + tv3 + tv4 + tv5
         mn_cons = mn1 + mn2 + mn3 + mn4 + mn5
 
-        loss = 0.5 * glc + mse + opt.lambda_smooth * (weights_norm_1 + tv_cons) + opt.lambda_monotonicity * mn_cons
+        loss = glc + mse + opt.lambda_smooth * (weights_norm_1 + tv_cons) + opt.lambda_monotonicity * mn_cons
 
         psnr_avg += 10 * math.log10(1 / mse.item())
 
@@ -258,7 +245,6 @@ for epoch in range(opt.epoch, opt.n_epochs):
                 "5": LUT5.state_dict()}
         torch.save(LUTs, "saved_models/%s/LUTs_%d.pth" % (opt.output_dir, epoch))
         torch.save(classifier.state_dict(), "saved_models/%s/classifier_%d.pth" % (opt.output_dir, epoch))
-        # torch.save(classifier_wb.state_dict(), "saved_models/%s/classifier_wb_%d.pth" % (opt.output_dir, epoch))
         file = open('saved_models/%s/result.txt' % opt.output_dir, 'a')
         file.write(" [PSNR: %f] [max PSNR: %f, epoch: %d]\n" % (avg_psnr, max_psnr, max_epoch))
         file.close()

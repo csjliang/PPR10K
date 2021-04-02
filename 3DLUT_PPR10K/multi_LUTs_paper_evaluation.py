@@ -1,28 +1,26 @@
 import argparse
 import time
+import os
 import torch
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
-import sys
-from PIL import Image
-import torchvision.transforms.functional as TF
 
 from models_x import *
 from datasets_AIPS_evaluation import *
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '7'
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--lut_number", type=int, default=5, help="number of lut")
 parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
-parser.add_argument("--epoch", type=int, default=270, help="epoch to start training from")
+parser.add_argument("--data_path", type=str, default="/home/liangjie/AIPS_data/", help="root of the datasets")
+parser.add_argument("--gpu_id", type=str, default="7", help="gpu id")
+parser.add_argument("--epoch", type=int, default=-1, help="epoch to start training from")
 parser.add_argument("--aug_test", type=bool, default=True, help="self-ensemble for testing")
 parser.add_argument("--dataset_name", type=str, default="consistency_colorfix_rename_1220", help="name of the datasets") #consistency_colorfix_rename_1220  beijing_1225
-parser.add_argument("--model_dir", type=str, default="newval_nomask_glc_zhangli", help="path to save model")
-parser.add_argument("--use_mask", type=bool, default=False,
-                    help="whether to use the human segmentation mask for weighted loss")
+parser.add_argument("--model_dir", type=str, default="nomask_noglc_a", help="path to save model")
 opt = parser.parse_args()
+
+os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_id
 
 cuda = True if torch.cuda.is_available() else False
 
@@ -57,7 +55,7 @@ classifier.load_state_dict(torch.load("saved_models/%s/classifier_%d.pth" % (opt
 classifier.eval()
 
 dataloader = DataLoader(
-    ImageDataset_paper("/data1/liangjie/", mode="test", use_mask=opt.use_mask),
+    ImageDataset_paper(opt.data_path),
     batch_size=1,
     shuffle=False,
     num_workers=1,
@@ -89,7 +87,7 @@ def generator(img, aug=False):
 
 def visualize_result():
     """Saves a generated sample from the validation set"""
-    out_dir = "/data1/liangjie/3dlut/images/val_all_full/%s_%d" % (opt.model_dir, opt.epoch)
+    out_dir = "results/%s_%d" % (opt.model_dir, opt.epoch)
     os.makedirs(out_dir, exist_ok=True)
     for i, batch in enumerate(dataloader):
         real_A = Variable(batch["A_input"].type(Tensor))

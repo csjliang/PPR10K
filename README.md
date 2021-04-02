@@ -11,11 +11,7 @@ The proposed **Portrait Photo Retouching dataset (PPR10K)** is a large-scale and
 - 3 versions of manual retouched targets of all photos given by 3 expert retouchers; <br> 
 - full resolution human-region masks of all photos.
 
-This dataset is first of its kind to consider the two special and practical requirements of portrait photo retouching task, i.e., 
-Human-Region Priority and Group-Level Consistency. Three main challenges are expected to be tackled in the follow-up researches: <br>
-- Flexible and content-adaptive models for such a diverse task regarding both image contents and lighting conditions; <br>
-- Highly efficient models to process practical resolution from 4K to 8K; <br>
-- Robust and stable models to meet the requirement of group-level consistency. 
+
 
 ### Samples
 
@@ -27,6 +23,12 @@ Two example groups of photos from the PPR10K dataset.
 The raw photos exhibit poor visual quality and large variance in subject views, background contexts, 
 lighting conditions and camera settings. 
 In contrast, the retouched results demonstrate both good visual quality (with *human-region priority*) and *group-level consistency*.
+
+This dataset is first of its kind to consider the two special and practical requirements of portrait photo retouching task, i.e., 
+Human-Region Priority and Group-Level Consistency. Three main challenges are expected to be tackled in the follow-up researches: <br>
+- Flexible and content-adaptive models for such a diverse task regarding both image contents and lighting conditions; <br>
+- Highly efficient models to process practical resolution from 4K to 8K; <br>
+- Robust and stable models to meet the requirement of group-level consistency. 
 
 ### Agreement
 

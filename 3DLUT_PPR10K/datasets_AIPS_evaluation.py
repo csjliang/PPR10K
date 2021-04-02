@@ -1,23 +1,16 @@
 import glob
-import random
 import os
 import numpy as np
-import torch
 import cv2
 
 from torch.utils.data import Dataset
-from PIL import Image
-import torchvision.transforms as transforms
-import torchvision.transforms.functional as TF
 import torchvision_x_functional as TF_x
 
 class ImageDataset_paper(Dataset):
-    def __init__(self, root, mode="train", use_mask=False):
-        self.mode = mode
+    def __init__(self, root):
         self.root = root
-        self.use_mask = use_mask
 
-        self.test_input_files = sorted(glob.glob("/data1/liangjie/AIPS_data_valsource_full" + "/*.tif"))
+        self.test_input_files = sorted(glob.glob(os.path.join(root, "val/source") + "/*.tif"))
 
     def __getitem__(self, index):
 
