@@ -51,7 +51,7 @@ and [百度网盘](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw) (验证码: 
 | &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff, with 5 versions of augmented images) and target (8 bit tiff) images for fast training and validation
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
+One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos, 5 versions of augmented photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
 Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g., augment the training samples regarding illuminations and colors, get photos with higher or full resolutions).
 
 ### Training and Validating the PPR using [3DLUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
