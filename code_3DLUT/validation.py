@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, default="/home/liangjie/AIPS_data/", help="root of the datasets")
 parser.add_argument("--gpu_id", type=str, default="7", help="gpu id")
 parser.add_argument("--epoch", type=int, default=-1, help="epoch to load")
-parser.add_argument("--model_dir", type=str, default="nomask_noglc_a", help="path to save model")
+parser.add_argument("--model_dir", type=str, default="mask_noglc_a", help="path to save model")
 parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 opt = parser.parse_args()
 

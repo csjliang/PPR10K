@@ -32,7 +32,7 @@ parser.add_argument("--use_mask", type=bool, default=True,
 parser.add_argument("--lut_dim", type=int, default=33, help="dimension of lut")
 parser.add_argument("--n_cpu", type=int, default=1, help="number of cpu threads to use during batch generation")
 parser.add_argument("--checkpoint_interval", type=int, default=1, help="epoch interval between model checkpoints")
-parser.add_argument("--output_dir", type=str, default="nomask_noglc_a", help="path to save or load model")
+parser.add_argument("--output_dir", type=str, default="mask_noglc_a", help="path to save or load model")
 opt = parser.parse_args()
 print(opt)
 

@@ -109,6 +109,19 @@ python validation.py --data_path [path_to_dataset] --gpu_id [gpu_id] --model_dir
 calculate_metrics(source_dir, target_dir, mask_dir)
 ```
 
+#### Pretrained Models
+
+- Download the pretrained models from [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
+or [百度网盘](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw), and move them to the directory *saved_models*:
+```bash
+mv your/path/to/pretrained_models/* saved_models/
+```
+- specify the --model_dir and --epoch (-1) to validate or initialize the training using the pretrained models, e.g.,
+```bash
+python validation.py --data_path [path_to_dataset] --gpu_id [gpu_id] --model_dir mask_noglc_a --epoch -1
+python train.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask True --output_dir mask_noglc_a --epoch -1
+```
+
 ### Citation
 If you use this dataset or code for your research, please cite our paper.
 ```
