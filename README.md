@@ -3,7 +3,7 @@
 ### [Paper](http://www4.comp.polyu.edu.hk/~cslzhang/paper/PPR10K-cvpr21-paper.pdf) |   [Supplementary Material](http://www4.comp.polyu.edu.hk/~cslzhang/paper/PPR10K-cvpr21-supp.pdf)
 
 > **PPR10K: A Large-Scale Portrait Photo Retouching Dataset with Human-Region Mask and Group-Level Consistency** <br>
-> [Jie Liang](liangjie.xyz)\*, Hui Zeng\*, Miaomiao Cui, Xuansong Xie and [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang/). <br>
+> Jie Liang\*, Hui Zeng\*, Miaomiao Cui, Xuansong Xie and [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang/). <br>
 > In CVPR 2021.
 
 The proposed **Portrait Photo Retouching dataset (PPR10K)** is a large-scale and diverse dataset that contains: <br>
