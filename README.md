@@ -35,8 +35,8 @@ Human-Region Priority and Group-Level Consistency. Three main challenges are exp
 
 ### Overview
 
-All data is hosted on [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
-and [百度网盘1](https://pan.baidu.com/s/1ovSNTtqnRbc5sGmTIxwb5Q) (验证码: estn), [百度网盘2](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文件形式，验证码: mrwn):
+All data is hosted on [Google Drive]() (Preparing), [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
+and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文件形式，验证码: mrwn):
 
 | Path | Size | Files | Format | Description
 | :--- | :---: | ----: | :----: | :----------
