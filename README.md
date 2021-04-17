@@ -40,7 +40,7 @@ and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文�
 
 | Path | Size | Files | Format | Description
 | :--- | :---: | ----: | :----: | :----------
-| [PPR10K-dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) | 345 GB | 122,810 | | Main folder
+| [PPR10K-dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) | 406 GB | 176,072 | | Main folder
 | &boxvr;&nbsp; raw | 313 GB | 11,161 | RAW | All photos in raw format (.CR2, .NEF, .ARW, etc)
 | &boxvr;&nbsp; xmp_source | 130 MB | 11,161 | XMP | Default meta-file of the raw photos in CameraRaw, used in our [data augmentation](docs/dataset_usage.md)
 | &boxvr;&nbsp; xmp_target_a | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert a
@@ -48,10 +48,11 @@ and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文�
 | &boxvr;&nbsp; xmp_target_c | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert c
 | &boxvr;&nbsp; masks_full | 697 MB | 11,161 | PNG | Full-resolution human-region masks in binary format
 | &boxvr;&nbsp; masks_360p | 56 MB | 11,161 | PNG | 360p human-region masks for fast training and validation
-| &boxvr;&nbsp; train_val_images_tif_360p | 32 GB | 44644 | TIF | 360p Source (16 bit tiff, with 5 versions of augmented images) and target (8 bit tiff) images for fast training and validation
+| &boxvr;&nbsp; train_val_images_tif_360p | 91 GB | 97894 | TIF | 360p Source (16 bit tiff, with 5 versions of augmented images) and target (8 bit tiff) images for fast training and validation
+| &boxvr;&nbsp; pretrained_models | 268 MB | 12 | pth | pretrained models for all 3 versions
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
-One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos, 5 versions of augmented photos and the corresponding human-region masks) we have provided following the settings in our paper. <br>
+One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos, 5 versions of augmented photos and the corresponding human-region masks) we have provided following the settings in our paper (train with the first 8,875 files and validate with the last 2286 files). <br>
 Also, see the [instructions](docs/dataset_usage.md) to customize your data (e.g., augment the training samples regarding illuminations and colors, get photos with higher or full resolutions).
 
 ### Training and Validating the PPR using [3DLUT](https://github.com/HuiZeng/Image-Adaptive-3DLUT)
