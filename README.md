@@ -49,7 +49,7 @@ and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文�
 | &boxvr;&nbsp; masks_full | 697 MB | 11,161 | PNG | Full-resolution human-region masks in binary format
 | &boxvr;&nbsp; masks_360p | 56 MB | 11,161 | PNG | 360p human-region masks for fast training and validation
 | &boxvr;&nbsp; train_val_images_tif_360p | 91 GB | 97894 | TIF | 360p Source (16 bit tiff, with 5 versions of augmented images) and target (8 bit tiff) images for fast training and validation
-| &boxvr;&nbsp; pretrained_models | 268 MB | 12 | pth | pretrained models for all 3 versions
+| &boxvr;&nbsp; pretrained_models | 268 MB | 12 | PTH | pretrained models for all 3 versions
 | &boxur;&nbsp; hists | 624KB | 39 | PNG | Overall statistics of the dataset
 
 One can directly use the 360p (of 540x360 or 360x540 resolution in sRGB color space) training and validation files (photos, 5 versions of augmented photos and the corresponding human-region masks) we have provided following the settings in our paper (train with the first 8,875 files and validate with the last 2286 files). <br>
