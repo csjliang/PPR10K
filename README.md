@@ -35,12 +35,12 @@ Human-Region Priority and Group-Level Consistency. Three main challenges are exp
 
 ### Overview
 
-All data is hosted on [Google Drive]() (Preparing), [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
-and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (压缩文件形式，验证码: mrwn):
+All data is hosted on [GoogleDrive](https://drive.google.com/drive/folders/1dKO1mKXCBbuE6KsZWPdMrjEjWJnJOY1k?usp=sharing), [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
+and [百度网盘](https://pan.baidu.com/s/1qjlJdM50msazSN4MnSiZrw) (验证码: mrwn):
 
 | Path | Size | Files | Format | Description
 | :--- | :---: | ----: | :----: | :----------
-| [PPR10K-dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) | 406 GB | 176,072 | | Main folder
+| [PPR10K-dataset](https://drive.google.com/drive/folders/1dKO1mKXCBbuE6KsZWPdMrjEjWJnJOY1k?usp=sharing) | 406 GB | 176,072 | | Main folder
 | &boxvr;&nbsp; raw | 313 GB | 11,161 | RAW | All photos in raw format (.CR2, .NEF, .ARW, etc)
 | &boxvr;&nbsp; xmp_source | 130 MB | 11,161 | XMP | Default meta-file of the raw photos in CameraRaw, used in our [data augmentation](docs/dataset_usage.md)
 | &boxvr;&nbsp; xmp_target_a | 130 MB | 11,161 | XMP | CameraRaw meta-file of the raw photos recoding the full adjustments by expert a
@@ -112,7 +112,7 @@ calculate_metrics(source_dir, target_dir, mask_dir)
 
 #### Pretrained Models
 
-- Download the pretrained models from [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux) 
+- Download the pretrained models from [GoogleDrive](https://drive.google.com/drive/folders/1dKO1mKXCBbuE6KsZWPdMrjEjWJnJOY1k?usp=sharing), [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/19109963r_connect_polyu_hk/EsDA5M_nN2lIrYTyNwTFZd0BCgyE-r_j2HzNhcMEQPGLlw?e=5NWXux)
 or [百度网盘](https://pan.baidu.com/s/1hpMO__JIvqWImdL8rznYcw), and move them to the directory *saved_models*:
 ```bash
 mv your/path/to/pretrained_models/* saved_models/
