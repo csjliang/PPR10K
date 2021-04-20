@@ -126,7 +126,7 @@ python train.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask True 
 ### Citation
 If you use this dataset or code for your research, please cite our paper.
 ```
-@inproceedings{park2019SPADE,
+@inproceedings{jie2021PPR10K,
   title={PPR10K: A Large-Scale Portrait Photo Retouching Dataset with Human-Region Mask and Group-Level Consistency},
   author={Liang, Jie and Zeng, Hui and Cui, Miaomiao and Xie, Xuansong and Zhang, Lei},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
