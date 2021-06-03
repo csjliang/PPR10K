@@ -1,6 +1,6 @@
 # Portrait Photo Retouching with PPR10K
 
-### [Paper](http://www4.comp.polyu.edu.hk/~cslzhang/paper/PPR10K-cvpr21-paper.pdf) |   [Supplementary Material](http://www4.comp.polyu.edu.hk/~cslzhang/paper/PPR10K-cvpr21-supp.pdf)
+### [Paper](https://arxiv.org/pdf/2105.09180.pdf) |   [Supplementary Material](http://www4.comp.polyu.edu.hk/~cslzhang/paper/PPR10K-cvpr21-supp.pdf) |   [Poster](http://liangjie.xyz/LjHomepageFiles/paper_files/poster_PPR10K.pdf)
 
 > **PPR10K: A Large-Scale Portrait Photo Retouching Dataset with Human-Region Mask and Group-Level Consistency** <br>
 > Jie Liang\*, Hui Zeng\*, Miaomiao Cui, Xuansong Xie and [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang/). <br>
