@@ -123,6 +123,10 @@ python validation.py --data_path [path_to_dataset] --gpu_id [gpu_id] --model_dir
 python train.py --data_path [path_to_dataset] --gpu_id [gpu_id] --use_mask True --output_dir mask_noglc_a --epoch -1
 ```
 
+### License
+
+This project is released under the Apache 2.0 license.
+
 ### Citation
 If you use this dataset or code for your research, please cite our paper.
 ```
